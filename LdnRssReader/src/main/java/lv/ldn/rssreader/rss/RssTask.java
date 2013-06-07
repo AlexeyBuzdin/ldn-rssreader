@@ -77,14 +77,13 @@ public class RssTask extends AsyncTask<String, Void, List<Article>> {
 	protected List<Article> doInBackground(String... urls) {
 		String feed = urls[0];
 
-		URL url = null;
 		try {
 
 			SAXParserFactory spf = SAXParserFactory.newInstance();
 			SAXParser sp = spf.newSAXParser();
 			XMLReader xr = sp.getXMLReader();
 
-			url = new URL(feed);
+            URL url = new URL(feed);
 			RssHandler rh = new RssHandler();
 
 			xr.setContentHandler(rh);
