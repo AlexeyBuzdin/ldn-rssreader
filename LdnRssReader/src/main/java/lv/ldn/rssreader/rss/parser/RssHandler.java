@@ -1,5 +1,7 @@
 package lv.ldn.rssreader.rss.parser;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,9 +57,6 @@ public class RssHandler extends DefaultHandler {
 	 * If this is closing the "entry", it means it is the end of the article, so we add that to the list
 	 * and then reset our Article object for the next one on the stream
 	 * 
-	 * 
-	 * (non-Javadoc)
-	 * @see org.xml.sax.helpers.DefaultHandler#endElement(java.lang.String, java.lang.String, java.lang.String)
 	 */
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 
@@ -75,11 +74,15 @@ public class RssHandler extends DefaultHandler {
                 }
             }
             currentArticle.setTitle(chars.toString());
-		} else if (localName.equalsIgnoreCase("description")){
-			currentArticle.setDescription(chars.toString());
 		} else if (localName.equalsIgnoreCase("guid")){
             currentArticle.setGuid(chars.toString());
-		} else if (localName.equalsIgnoreCase("pubDate")){
+		} else if (localName.equalsIgnoreCase("url")){
+            try {
+                currentArticle.setUrl(new URL(chars.toString()));
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        } else if (localName.equalsIgnoreCase("pubDate")){
             currentArticle.setPubDate(chars.toString());
 		} else if (localName.equalsIgnoreCase("author")){
             currentArticle.setAuthor(chars.toString());
@@ -92,9 +95,7 @@ public class RssHandler extends DefaultHandler {
 	 * guarante that this will be called at the end of the node, or that it will be called only once
 	 * , so we just accumulate these and then deal with them in endElement() to be sure we have all the
 	 * text
-	 * 
-	 * (non-Javadoc)
-	 * @see org.xml.sax.helpers.DefaultHandler#characters(char[], int, int)
+	 *
 	 */
 	public void characters(char ch[], int start, int length) {
 		chars.append(new String(ch, start, length));

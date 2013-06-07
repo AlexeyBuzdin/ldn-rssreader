@@ -15,8 +15,7 @@ import lv.ldn.rssreader.rss.domain.Article;
 
 public class ArticleListActivity extends Activity implements AdapterView.OnItemClickListener {
 
-    private static final String BLOG_URL = "http://habrahabr.ru/rss/hubs/"; //http://blog.nerdability.com/feeds/posts/default
-    private RssService rssService;
+    private static final String BLOG_URL = "http://habrahabr.ru/rss/hubs/";
 
     private DbAdapter dba;
     private ListView listView;
@@ -44,12 +43,12 @@ public class ArticleListActivity extends Activity implements AdapterView.OnItemC
         ((ArrayAdapter)listView.getAdapter()).notifyDataSetChanged();
 
         Intent detailIntent = new Intent(this, ArticleDetailActivity.class);
-        detailIntent.putExtra(ArticleDetailActivity.URL, selected.getGuid());
+        detailIntent.putExtra(ArticleDetailActivity.URL, selected);
         startActivity(detailIntent);
     }
 
     private void refreshList(){
-        rssService = new RssService(this);
+        RssService rssService = new RssService(this);
         rssService.execute(BLOG_URL);
     }
 

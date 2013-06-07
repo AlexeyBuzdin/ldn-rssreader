@@ -101,12 +101,7 @@ public class DbAdapter{
         }
         return null;
     }
-    
-    public boolean markAsUnread(String guid) {
-        ContentValues args = new ContentValues();
-        args.put(KEY_READ, false);
-        return sqLiteDatabase.update(DATABASE_TABLE, args, KEY_GUID + "='" + guid+"'", null) > 0;
-    }
+
     
     public boolean markAsRead(String guid) {
         ContentValues args = new ContentValues();
@@ -114,9 +109,4 @@ public class DbAdapter{
         return sqLiteDatabase.update(DATABASE_TABLE, args, KEY_GUID + "='" + guid+"'", null) > 0;
     }
 
-    public boolean saveForOffline(String guid) {
-        ContentValues args = new ContentValues();
-        args.put(KEY_OFFLINE, true);
-        return sqLiteDatabase.update(DATABASE_TABLE, args, KEY_GUID + "='" + guid+"'", null) > 0;
-    }
 }

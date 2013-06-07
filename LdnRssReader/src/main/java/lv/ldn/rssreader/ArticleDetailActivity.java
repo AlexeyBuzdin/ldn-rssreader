@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.webkit.WebView;
 
+import java.io.Serializable;
+import java.net.URL;
+
 import lv.ldn.rssreader.db.DbAdapter;
 import lv.ldn.rssreader.rss.domain.Article;
 
@@ -19,7 +22,9 @@ public class ArticleDetailActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.web_view);
 
-        url = getIntent().getStringExtra(URL);
+        Article article = (Article) getIntent().getSerializableExtra(URL);
+
+        url = article.getUrl().toString();
 
         initView();
     }
