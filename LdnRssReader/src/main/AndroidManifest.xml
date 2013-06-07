@@ -17,7 +17,7 @@
         android:theme="@style/AppTheme" >
         <activity
                 android:name=".ArticleListActivity"
-                android:label="NerdAbility Reader" >
+                android:label="My RSS Reader" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,8 +26,7 @@
         </activity>
         <activity
                 android:name=".ArticleDetailActivity"
-                android:label="Post Detail"
-                android:hardwareAccelerated="false">
+                android:label="Post Detail">
         </activity>
     </application>
 

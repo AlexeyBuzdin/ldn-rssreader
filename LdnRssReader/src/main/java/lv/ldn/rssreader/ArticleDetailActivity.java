@@ -2,50 +2,50 @@ package lv.ldn.rssreader;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.webkit.WebView;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
+import android.widget.TextView;
 
-import java.io.Serializable;
-import java.net.URL;
-
-import lv.ldn.rssreader.db.DbAdapter;
 import lv.ldn.rssreader.rss.domain.Article;
 
 public class ArticleDetailActivity extends Activity {
 
     public static final String URL = "url";
 
-    String url;
+    private Article article;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.web_view);
+        setContentView(R.layout.article_detail);
 
-        Article article = (Article) getIntent().getSerializableExtra(URL);
-
-        url = article.getUrl().toString();
+        article = (Article) getIntent().getSerializableExtra(URL);
 
         initView();
     }
 
   public void initView(){
+      TextView title = (TextView) findViewById(R.id.article_title);
+      title.setText(article.getTitle());
 
-      final WebView myWebView = (WebView) findViewById(R.id.webView);
-      myWebView.getSettings().setJavaScriptEnabled(true);
-      myWebView.loadUrl(url);
+      TextView author = (TextView) findViewById(R.id.article_author);
+      author.setText(article.getAuthor());
+
+      TextView description = (TextView) findViewById(R.id.article_detail);
+      description.setMovementMethod(LinkMovementMethod.getInstance());
+      description.setText(Html.fromHtml(article.getDescription()));
   }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putSerializable(URL, url);
+        outState.putSerializable(URL, article);
     }
 
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
-        url = savedInstanceState.getString(URL);
+        article = (Article) savedInstanceState.getSerializable(URL);
     }
 
 }

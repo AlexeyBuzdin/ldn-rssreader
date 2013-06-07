@@ -1,13 +1,13 @@
 package lv.ldn.rssreader.rss.parser;
 
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
 
 import lv.ldn.rssreader.rss.domain.Article;
 
@@ -76,6 +76,8 @@ public class RssHandler extends DefaultHandler {
             currentArticle.setTitle(chars.toString());
 		} else if (localName.equalsIgnoreCase("guid")){
             currentArticle.setGuid(chars.toString());
+		} else if (localName.equalsIgnoreCase("description")){
+            currentArticle.setDescription(chars.toString());
 		} else if (localName.equalsIgnoreCase("url")){
             try {
                 currentArticle.setUrl(new URL(chars.toString()));

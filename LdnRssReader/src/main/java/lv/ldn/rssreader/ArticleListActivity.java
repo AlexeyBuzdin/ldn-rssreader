@@ -10,7 +10,7 @@ import android.widget.ListView;
 
 import lv.ldn.rssreader.adapter.ArticleListAdapter;
 import lv.ldn.rssreader.db.DbAdapter;
-import lv.ldn.rssreader.rss.RssService;
+import lv.ldn.rssreader.rss.RssTask;
 import lv.ldn.rssreader.rss.domain.Article;
 
 public class ArticleListActivity extends Activity implements AdapterView.OnItemClickListener {
@@ -48,8 +48,8 @@ public class ArticleListActivity extends Activity implements AdapterView.OnItemC
     }
 
     private void refreshList(){
-        RssService rssService = new RssService(this);
-        rssService.execute(BLOG_URL);
+        RssTask rssTask = new RssTask(this);
+        rssTask.execute(BLOG_URL);
     }
 
     public void setListAdapter(ArticleListAdapter adapter) {
