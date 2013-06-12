@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NerdAbility Reader</string>
+    <string name="app_name">RSS Reader</string>
     <string name="title_article_detail">Post Detail</string>
     <string name="title_article_list">RSS Reader</string>
 	<string name="btn_offline_reading">Save for later</string>
