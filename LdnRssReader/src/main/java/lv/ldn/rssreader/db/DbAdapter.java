@@ -16,7 +16,6 @@ public class DbAdapter{
 	public static final String KEY_ROWID = BaseColumns._ID;
 	public static final String KEY_GUID = "guid";
 	public static final String KEY_READ = "read";
-	public static final String KEY_OFFLINE = "offline";    
 	
 	private static final String DATABASE_NAME = "blogposts";
 	private static final String DATABASE_TABLE = "blogpostlist";
@@ -25,8 +24,7 @@ public class DbAdapter{
 	private static final String DATABASE_CREATE_LIST_TABLE = "create table " + DATABASE_TABLE + " (" + 
 																KEY_ROWID +" integer primary key autoincrement, "+ 
 																KEY_GUID + " text not null, " +
-																KEY_READ + " boolean not null, " + 
-																KEY_OFFLINE + " boolean not null);";
+																KEY_READ + " boolean not null);";
 
 
 	private SQLiteHelper sqLiteHelper;
@@ -72,7 +70,6 @@ public class DbAdapter{
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_GUID, guid);
         initialValues.put(KEY_READ, false);
-        initialValues.put(KEY_OFFLINE, false);
         return sqLiteDatabase.insert(DATABASE_TABLE, null, initialValues);
     }
     
@@ -81,8 +78,7 @@ public class DbAdapter{
         		sqLiteDatabase.query(true, DATABASE_TABLE, new String[] {
                 		KEY_ROWID,
                 		KEY_GUID, 
-                		KEY_READ,
-                		KEY_OFFLINE
+                		KEY_READ
                 		}, 
                 		KEY_GUID + "= '" + guid + "'", 
                 		null,
@@ -96,7 +92,6 @@ public class DbAdapter{
    			a.setGuid(mCursor.getString(mCursor.getColumnIndex(KEY_GUID)));
    			a.setRead(mCursor.getInt(mCursor.getColumnIndex(KEY_READ)) > 0);
    			a.setDbId(mCursor.getLong(mCursor.getColumnIndex(KEY_ROWID)));
-   			a.setOffline(mCursor.getInt(mCursor.getColumnIndex(KEY_OFFLINE)) > 0);
    			return a;
         }
         return null;
