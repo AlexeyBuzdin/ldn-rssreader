@@ -18,12 +18,6 @@ public class RssHandler extends DefaultHandler {
 	private Article currentArticle = new Article();
 	private List<Article> articleList = new ArrayList<Article>();
 
-	// Number of articles added so far
-	private int articlesAdded = 0;
-
-	// Number of articles to download
-	private static final int ARTICLES_LIMIT = 150;
-
 	//Current characters being accumulated
 	StringBuffer chars = new StringBuffer();
 
@@ -39,8 +33,6 @@ public class RssHandler extends DefaultHandler {
 	 * here we always reset the characters StringBuffer as we are only currently interested
 	 * in the the text values stored at leaf nodes
 	 * 
-	 * (non-Javadoc)
-	 * @see org.xml.sax.helpers.DefaultHandler#startElement(java.lang.String, java.lang.String, java.lang.String, org.xml.sax.Attributes)
 	 */
     @Override
 	public void startElement(String uri, String localName, String qName, Attributes atts) {
@@ -68,12 +60,6 @@ public class RssHandler extends DefaultHandler {
 
                 currentArticle = new Article();
 
-                // Lets check if we've hit our limit on number of articles
-                articlesAdded++;
-                if (articlesAdded >= ARTICLES_LIMIT)
-                {
-                    throw new SAXException();
-                }
             }
             currentArticle.setTitle(chars.toString());
 		} else if (localName.equalsIgnoreCase("guid")){
